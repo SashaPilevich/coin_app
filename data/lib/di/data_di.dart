@@ -33,10 +33,15 @@ class DataDI {
 
   void _initCoins() {
     appLocator.registerLazySingleton<CoinsRepository>(
-        () => CoinsRepositoryImpl(
-              coinsApiProvider: appLocator<CoinsApiProvider>(),
-            )
+      () => CoinsRepositoryImpl(
+        coinsApiProvider: appLocator<CoinsApiProvider>(),
+      ),
+    );
+
+    appLocator.registerLazySingleton<FetchCoinsUseCase>(
+      () => FetchCoinsUseCase(
+        coinsRepository: appLocator<CoinsRepository>(),
+      ),
     );
   }
-
 }
