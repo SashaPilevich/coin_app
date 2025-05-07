@@ -1,3 +1,3 @@
 library features;
 
-export 'main/screen/main_screen.dart';
+export 'coins/screen/coins_screen.dart';
