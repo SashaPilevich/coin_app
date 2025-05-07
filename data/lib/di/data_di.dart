@@ -2,7 +2,6 @@ import 'package:core/core.dart';
 import 'package:domain/domain.dart';
 
 import '../providers/api/api_providers.dart';
-import '../providers/local/local_providers.dart';
 import '../repositories/repositories.dart';
 
 final DataDI dataDI = DataDI();
