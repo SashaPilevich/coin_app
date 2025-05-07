@@ -20,9 +20,6 @@ class ColorGenerator {
 
     final Color color = Color.fromRGBO(r, g, b, 1.0);
 
-    if (_colorCache.containsValue(color)) {
-      return generateColor(index + 1);
-    }
     _colorCache[index] = color;
     return color;
   }
