@@ -1,3 +1,7 @@
 {
-  "appTitle": "Test"
+  "coins": {
+    "errorTitle": "Oops, something went wrong",
+    "errorMessage": "We couldn't load the data. Please check your internet connection.",
+    "tryAgain": "Try again"
+  }
 }

@@ -1,3 +1,3 @@
 class RouterConstants {
-  static const String mainRoute = '/';
+  static const String coinsRoute = '/';
 }

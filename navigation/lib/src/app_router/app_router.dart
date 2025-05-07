@@ -16,12 +16,12 @@ class AppRouter {
   final GoRouter _router = GoRouter(
     navigatorKey: _navigatorKey,
     observers: <NavigatorObserver>[RouterLogger()],
-    initialLocation: RouterConstants.mainRoute,
+    initialLocation: RouterConstants.coinsRoute,
     routes: <RouteBase>[
       GoRoute(
-        path: RouterConstants.mainRoute,
-        name: RouterConstants.mainRoute,
-        builder: (BuildContext context, GoRouterState state) => const MainScreen(),
+        path: RouterConstants.coinsRoute,
+        name: RouterConstants.coinsRoute,
+        builder: (BuildContext context, GoRouterState state) => const CoinsScreen(),
       ),
     ],
   );

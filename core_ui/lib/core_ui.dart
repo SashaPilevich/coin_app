@@ -1,5 +1,8 @@
 library core_ui;
 
+//packages
+export 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
+
 //theme
 export 'src/theme/app_colors.dart';
 export 'src/theme/app_dimens.dart';

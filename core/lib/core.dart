@@ -17,4 +17,5 @@ export 'di/app_di.dart';
 export 'localization/app_localization.dart';
 export 'localization/locale_keys.g.dart';
 export 'logger/app_logger.dart';
+export 'utils/color_generator.dart';
 export 'utils/extensions.dart';
