@@ -8,19 +8,21 @@ class ColorGenerator {
       return _colorCache[index]!;
     }
 
-    final int seed = index;
+    final int seed = _generateSeed(index);
+    ;
 
-    final int rResult = _lcg(seed);
-    final int gResult = _lcg(rResult ^ seed);
-    final int bResult = _lcg(gResult ^ seed);
-
-    final int r = rResult % _maxChannelValue;
-    final int g = gResult % _maxChannelValue;
-    final int b = bResult % _maxChannelValue;
+    final int r = _lcg(seed) % _maxChannelValue;
+    final int g = _lcg(r ^ seed) % _maxChannelValue;
+    final int b = _lcg(g ^ seed) % _maxChannelValue;
 
     final Color color = Color.fromRGBO(r, g, b, 1.0);
 
     _colorCache[index] = color;
+
+    if (_colorCache.length > _maxCacheSize) {
+      _colorCache.remove(_colorCache.keys.first);
+    }
+
     return color;
   }
 
@@ -28,12 +30,18 @@ class ColorGenerator {
   static const int _multiplier = 1664525;
   static const int _increment = 1013904223;
   static final Map<int, Color> _colorCache = <int, Color>{};
+  static const int _maxCacheSize = 500;
+  static final int _baseSeed = DateTime.now().millisecondsSinceEpoch;
+  static const int _modulus = 1 << 32;
 
   /// Applies the Linear Congruential Generator (LCG) to produce a pseudo-random value.
   /// Uses standard constants for optimal randomness.
   static int _lcg(int seed) {
     // LCG: next = (a * seed + c) % m
-    final int next = (_multiplier * seed + _increment) % _maxChannelValue;
-    return next;
+    return ((_multiplier * seed + _increment) % _modulus).abs();
+  }
+
+  static int _generateSeed(int index) {
+    return index.hashCode ^ _baseSeed;
   }
 }
