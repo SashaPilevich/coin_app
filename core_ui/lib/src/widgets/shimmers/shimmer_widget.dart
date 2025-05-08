@@ -6,15 +6,15 @@ import '../../../core_ui.dart';
 
 class ShimmerWidget extends StatelessWidget {
   final double borderRadius;
-  final double? width;
-  final double? height;
+  final double width;
+  final double height;
   final Color? color;
   final Widget? child;
 
   const ShimmerWidget({
     this.borderRadius = AppDimens.borderRadius18,
-    this.width,
-    this.height,
+    this.width = double.infinity,
+    this.height = AppDimens.size56,
     this.color,
     this.child,
     super.key,
@@ -31,6 +31,7 @@ class ShimmerWidget extends StatelessWidget {
           Container(
             height: height,
             width: width,
+            margin: EdgeInsets.symmetric(vertical: AppDimens.margin7.h),
             decoration: BoxDecoration(
               color: appColors.shimmerBaseColor,
               borderRadius: BorderRadius.all(

@@ -36,7 +36,6 @@ class CoinsBloc extends Bloc<CoinsEvent, CoinsState> {
           coins: <CoinModel>[...coins],
           isAllCoinsDownloaded: coins.length < AppConstants.kLimit,
           offset: state.offset + AppConstants.kLimit,
-          isLoading: false,
         ),
       );
     } on AppException catch (e) {
@@ -65,7 +64,6 @@ class CoinsBloc extends Bloc<CoinsEvent, CoinsState> {
           coins: <CoinModel>[...state.coins, ...coins],
           isAllCoinsDownloaded: coins.length < AppConstants.kLimit,
           offset: state.offset + AppConstants.kLimit,
-          isDownloading: false,
         ),
       );
     } on AppException catch (e) {

@@ -37,31 +37,26 @@ class CoinsForm extends StatelessWidget {
                 onRefresh: () async {
                   bloc.add(LoadCoinsEvent());
                 },
-                child: Padding(
+                child: ListView.builder(
                   padding: EdgeInsets.symmetric(horizontal: AppDimens.padding20.w),
-                  child: SingleChildScrollView(
-                    child: state.isLoading
-                        ? const ShimmerColumn(count: AppDimens.count15)
-                        : Column(
-                            children: <Widget>[
-                              ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: state.coins.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  final CoinModel coin = state.coins[index];
-                                  final Color color = ColorGenerator.generateColor(index);
-                                  return CoinItem(
-                                    coin: coin,
-                                    backgroundColor: color,
-                                  );
-                                },
-                              ),
-                              DownloadingItem(isVisible: state.isDownloading)
-                            ],
-                          ),
-                  ),
+                  itemCount: state.isLoading ? AppDimens.count15 : state.coins.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final bool isDownloading =
+                        index == state.coins.length - 1 && state.isDownloading;
+                    if (state.isLoading) {
+                      return const ShimmerWidget();
+                    }
+                    if (isDownloading) {
+                      return const DownloadingItem(isVisible: true);
+                    }
+                    final CoinModel coin = state.coins[index];
+                    final Color color = ColorGenerator.generateColor(index);
+                    return CoinItem(
+                      key: ValueKey<String>(coin.id),
+                      coin: coin,
+                      backgroundColor: color,
+                    );
+                  },
                 ),
               ),
             );
