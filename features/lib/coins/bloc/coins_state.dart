@@ -7,6 +7,7 @@ class CoinsState extends Equatable {
   final bool isAllCoinsDownloaded;
   final int offset;
   final bool isError;
+  final Map<int, Color> colors;
 
   const CoinsState({
     this.coins = const <CoinModel>[],
@@ -15,6 +16,7 @@ class CoinsState extends Equatable {
     this.isAllCoinsDownloaded = false,
     this.offset = 0,
     this.isError = false,
+    this.colors = const <int, Color>{},
   });
 
   CoinsState copyWith({
@@ -24,6 +26,7 @@ class CoinsState extends Equatable {
     bool? isAllCoinsDownloaded,
     int? offset,
     bool? isError,
+    Map<int, Color>? colors,
   }) {
     return CoinsState(
       coins: coins ?? this.coins,
@@ -32,6 +35,7 @@ class CoinsState extends Equatable {
       isAllCoinsDownloaded: isAllCoinsDownloaded ?? this.isAllCoinsDownloaded,
       offset: offset ?? this.offset,
       isError: isError ?? this.isError,
+      colors: colors ?? this.colors,
     );
   }
 
@@ -43,5 +47,6 @@ class CoinsState extends Equatable {
         isAllCoinsDownloaded,
         offset,
         isError,
+        colors,
       ];
 }

@@ -50,7 +50,7 @@ class CoinsForm extends StatelessWidget {
                       return const DownloadingItem(isVisible: true);
                     }
                     final CoinModel coin = state.coins[index];
-                    final Color color = ColorGenerator.generateColor(index);
+                    final Color color = state.colors[index] ?? AppColors.violet;
                     return CoinItem(
                       key: ValueKey<String>(coin.id),
                       coin: coin,

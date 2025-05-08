@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:core/core.dart';
 import 'package:domain/domain.dart';
 
@@ -31,11 +33,13 @@ class CoinsBloc extends Bloc<CoinsEvent, CoinsState> {
     );
     try {
       final List<CoinModel> coins = await loadCoins();
+      final Map<int, Color> colors = _generateColorsForCoins(coins, 0);
       emit(
         state.copyWith(
           coins: <CoinModel>[...coins],
           isAllCoinsDownloaded: coins.length < AppConstants.kLimit,
           offset: state.offset + AppConstants.kLimit,
+          colors: colors,
         ),
       );
     } on AppException catch (e) {
@@ -59,11 +63,14 @@ class CoinsBloc extends Bloc<CoinsEvent, CoinsState> {
     );
     try {
       final List<CoinModel> coins = await loadCoins();
+      final Map<int, Color> colors = Map<int, Color>.from(state.colors);
+      colors.addAll(_generateColorsForCoins(coins, state.coins.length));
       emit(
         state.copyWith(
           coins: <CoinModel>[...state.coins, ...coins],
           isAllCoinsDownloaded: coins.length < AppConstants.kLimit,
           offset: state.offset + AppConstants.kLimit,
+          colors: colors,
         ),
       );
     } on AppException catch (e) {
@@ -82,5 +89,16 @@ class CoinsBloc extends Bloc<CoinsEvent, CoinsState> {
       AppLogger.error('_onLoadCoins $e');
     }
     return coins.data;
+  }
+
+  /// Generates colors for a list of coins, synchronized with pagination.
+  /// Colors are precomputed for all items in the batch to ensure smooth scrolling
+  /// and minimal UI computations.
+  Map<int, Color> _generateColorsForCoins(List<CoinModel> coins, int startIndex) {
+    final Map<int, Color> colors = <int, Color>{};
+    for (int i = 0; i < coins.length; i++) {
+      colors[startIndex + i] = ColorGenerator.generateColor(startIndex + i);
+    }
+    return colors;
   }
 }
